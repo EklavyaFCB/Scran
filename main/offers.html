@@ -1,0 +1,128 @@
+<link rel="stylesheet" type="text/css" href="css/offers.css" />
+    <h1>Offers</h1>
+    <div class="newSection">
+        <h3 class="header">Offer of the Week</h3>
+    </div>
+    <div id="offerOfWeek">                    
+        <div class="popup" onclick="restClick()">
+            <h3 id="restName0"></h3><br>
+            <h4 id = "Description0"></h4><br>
+            <span class="popuptext" id="Requirements0"></span>
+        </div>
+            <a style="text-decoration: default; color: black;" href="" id="address0">
+                <h5 id = "address0"></h5></a>
+        <script>
+            // When the user clicks on <div>, open the popup
+            function restClick() {
+                var popup = document.getElementById("Requirements0");
+                popup.classList.toggle("show");
+            }
+        </script>
+    </div>
+    <div class="newSection" id="addOfferLink" style="display:none">
+        <br><a class="button" href="#addOffer">Add Offer</a><br><br>
+    </div>
+    <div class="newSection">
+        <h3 class="header">Other Offers</h3>
+    </div>
+    <div class="sectionTable">
+        <div class="sectionRow">
+            <div class="sectionCell">
+                <div class="popup" onclick="rest2Click()">
+                    <h3 id="restName1"></h3><br>
+                    <h4 id = "Description1"></h4><br>
+                    <span class="popuptext" id="Requirements1"></span>
+                </div>
+                <a style="text-decoration: default; color: black;" href="" id="address1"><h5 id = "address1"></h5></a>
+                <script>
+                    // When the user clicks on <div>, open the popup
+                    function rest2Click() {
+                        var popup = document.getElementById("Requirements1");
+                        popup.classList.toggle("show");
+                    }
+                </script>
+            </div>
+            <div class="sectionCell">
+                <div class="popup" onclick="rest3Click()">
+                    <h3 id = "restName2"></h3><br>
+                    <h4 id = "Description2"></h4><br>
+                    <span class="popuptext" id="Requirements2"></span>
+                </div>
+                    <a style="text-decoration: default; color: black" href="" id="address2">
+                        <h5 id = "address2"></h5></a>
+                <script>
+                    // When the user clicks on <div>, open the popup
+                    function rest3Click() {
+                        var popup = document.getElementById("Requirements2");
+                        popup.classList.toggle("show");
+                    }
+                </script>
+            </div>
+        </div>
+        <div class="sectionRow">
+            <div class="sectionCell">
+                <div class="popup" onclick="rest4Click()">
+                    <h3 id = "restName3"></h3><br>
+                    <h4 id = "Description3"></h4><br>
+                    <span class="popuptext" id="Requirements3"></span>
+                </div>
+                    <a style="text-decoration: default; color: black" href="" id="address3">
+                        <h5 id = "address3"></h5></a>
+                <script>
+                    // When the user clicks on <div>, open the popup
+                    function rest4Click() {
+                        var popup = document.getElementById("Requirements3");
+                        popup.classList.toggle("show");
+                    }
+                </script>
+            </div>
+            <div class="sectionCell">
+                <div class="popup" onclick="rest5Click()">
+                    <h3 id = "restName4"></h4><br>
+                    <h4 id = "Description4"></h4><br>
+                    <span class="popuptext" id="Requirements4"></span>
+                </div>
+                    <a style="text-decoration: default; color: black" href="" id="address4">
+                        <h5 id = "address4"></h5></a>
+                <script>
+                    // When the user clicks on <div>, open the popup
+                    function rest5Click() {
+                        var popup = document.getElementById("Requirements4");
+                        popup.classList.toggle("show");
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <div id="note">
+        <br><span>Click on an underlined address to see it on Google Maps</span>
+    </div>
+    <script>
+        // AJAX
+        $(document).ready(function() {
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/offers.php',
+                type:'post',
+                dataType: "json",
+                success: function(response){
+                    var len = response.length;
+                    for(var i=0; i<len; i++){
+                        var restName = response[i].restName;
+                        var address = response[i].address;
+                        var Description = response[i].Description;
+                        var Requirements = response[i].Requirements;
+
+                        $("#restName"+i).append(restName);
+                        $("#address"+i).append(address);
+                        $("#address"+i).attr("href","http://maps.google.com/?q=" + address);
+                        $("#Description"+i).append(Description);
+                        $("#Requirements"+i).append(Requirements);
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Check your Internet Connection2");
+                }
+            });
+        });
+
+    </script>

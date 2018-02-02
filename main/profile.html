@@ -1,0 +1,148 @@
+<link rel="stylesheet" type="text/css" href="css/profile.css" />
+    <div class="userInfoWrapper"> 
+        <h1>Profile</h1>
+        <div id="userFavourites">
+            <h3 class="header">My Info</h3>
+            <div class="sectionTable" id="myFavourites">
+                <div class="tableRow">
+                    <h3 id="username"><b>Username:&nbsp</b></h3><br>
+                </div>
+                <div class="tableRow">
+                    <h3 id="email"><b>Email:&nbsp</b></h3><br>
+                </div>
+            </div>
+            <h3 class="header">My Favourites&nbsp&nbsp&nbsp&nbsp<a href="#editprofile"><img src="resources/edit.png" alt="Edit Profile" width="15px" height="20px"></a></h3>
+            <div class="sectionTable" id="myFavourites">
+                <div class="tableRow">
+                    <div class="tableCell" id="icon">
+                        <img src="resources/favRestaurant.png" alt="Restaurant" width="10px" height="20px">
+                    </div>
+                    <div class="tableCell" id="text">
+                        <b>Restaurant: </b><div id="favRest">Nando's</div><br>
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class="tableCell" id="icon">
+                        <img src="resources/favCuisine.png" alt="Cuisine" width="20px" height="20px">
+                    </div>
+                    <div class="tableCell" id="text">
+                        <b>Cuisine: </b><div id="favCuisine">Portuguese</div><br>
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class="tableCell" id="icon">
+                        <img src="resources/favDish.png" alt="Dish" width="20px" height="10px">
+                    </div>
+                    <div class="tableCell" id="text">
+                       <b>Dish: </b><div id="favDish">Peri-Peri Chicken</div><br>
+                    </div>
+                </div>
+            </div>
+            <div id="recentDishesSection">
+                <h3 class="header">Recent Dishes</h3>
+                <div class="dishEntries">
+                    <div class='tableRow'>
+                        <div class='dishEntry' id="dish1" style="display:none;">
+                            <b><p id="dishName1"></p></b>
+                            <p id="dishDescription1"></p>
+                        </div>
+                        <div class='dishEntry' id="dish2" style="display:none;">
+                            <b><p id="dishName2"></p></b>
+                            <p id="dishDescription2"></p>
+                        </div>
+                    </div>
+
+                    <div class='tableRow'>
+                        <div class='dishEntry' id="dish3" style="display:none;">
+                            <b><p id="dishName3"></p></b>
+                            <p id="dishDescription3"></p>
+                        </div>
+                        <div class='dishEntry' id="dish4" style="display:none;">
+                            <b><p id="dishName4"></p></b>
+                            <p id="dishDescription4"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <script>
+    var usn = localStorage.username;
+    var usnID = localStorage.userID;
+        // Ajax
+        $(document).ready(function() {
+                //Submit form
+                $.ajax({
+                    url:'http://cgi.csc.liv.ac.uk/~u5dc/profile.php',
+                    type:'post',
+                    dataType: "json",
+                    data: {usn : usn, usnID : usnID},
+
+                    success: function(data){
+                        $("#username").append(localStorage.username);
+                        $("#dishName1").append(data.dishName1);
+                        $("#dishDescription1").append(data.dishDescription1);
+                        $("#dish1").attr("data-value",data.dishID1);
+                        if(data.dishID1!=null){
+                            $("#dish1").attr("style","display:default");
+                        }  
+                        $("#dishName2").append(data.dishName2);
+                        $("#dishDescription2").append(data.dishDescription2);
+                        $("#dish2").attr("data-value",data.dishID2);
+                        if(data.dishID2!=null){
+                            $("#dish2").attr("style","display:default");
+                        }
+                        $("#dishName3").append(data.dishName3);
+                        $("#dishDescription3").append(data.dishDescription3);
+                        $("#dish3").attr("data-value",data.dishID3);
+                        // $("#dish3").attr("style","display:default");
+                        if(data.dishID3!=null){
+                            $("#dish3").attr("style","display:default");
+                        }
+                        $("#dishName4").append(data.dishName4);
+                        $("#dishDescription4").append(data.dishDescription4);
+                        $("#dish4").attr("data-value",data.dishID4);
+                        // $("#dish4").attr("style","display:default");
+                        if(data.dishID4!=null){
+                            $("#dish4").attr("style","display:default");
+                        }
+                        $("#email").append(data.email);
+                        $("#userType").append(data.userType);
+                        $("#karma").append(data.karma);
+
+                        $("#favDish").replaceWith(localStorage.favDish);
+                        $("#favCuisine").replaceWith(localStorage.favCuisine);
+                        $("#favRest").replaceWith(localStorage.favRest);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError){
+                        alert("ERROR: Check your Internet Connection");
+                    }
+                });
+            });
+        $(document).off('click','#dish1');
+        $(document).on('click','#dish1',function(){
+            dishIDToLoad = $(this).attr('data-value');
+            if(dishIDToLoad!=null){
+                window.location.hash = "dish";
+            }
+        });
+        $(document).off('click','#dish2');
+        $(document).on('click','#dish2',function(){
+            dishIDToLoad = $(this).attr('data-value');
+            if(dishIDToLoad!=null){
+                window.location.hash = "dish";
+            }
+        });
+        $(document).off('click','#dish3');
+        $(document).on('click','#dish3',function(){
+            dishIDToLoad = $(this).attr('data-value');
+            if(dishIDToLoad!=null){
+                window.location.hash = "dish";
+            }
+        });
+        $(document).off('click','#dish4');
+        $(document).on('click','#dish4',function(){
+            dishIDToLoad = $(this).attr('data-value');
+            if(dishIDToLoad!=null){
+                window.location.hash = "dish";
+            }
+        });
+        </script>

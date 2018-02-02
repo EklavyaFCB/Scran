@@ -1,0 +1,66 @@
+<link rel="stylesheet" type="text/css" href="css/homepage.css" />
+	<h1>Welcome!</h1>
+	<div class="sectionTable">
+		<div class="row">
+			<div class="header">
+				Your Recommendations
+			</div>
+		</div>
+		<div id="searchResultList"></div>
+	</div>
+<script>
+	var userID = localStorage.userID;
+	$.ajax({
+        url:'http://cgi.csc.liv.ac.uk/~u5dc/home.php',
+        type:'post',
+        data:{ userID: userID },
+        dataType: "json",
+        success: function(data){
+            findDishResults = data;
+            for(count=0;count<findDishResults.length;count++){
+	            dishIDSearch = findDishResults[count];
+	            $.ajax({
+	                url:'http://cgi.csc.liv.ac.uk/~u5dc/findADishResults.php',
+	                type:'post',
+	                data:{ count : count, dishIDSearch: dishIDSearch },
+	                dataType: "json",
+	                success: function(data){
+	                	if(data.dishName!=null)
+	                	{
+		                    $("#searchResultList").append(""+
+		                        "<div id=\"searchResult\" class=\"searchResult\" data-value=\""+data.dishID+"\">" +
+		                            "<div class=\"row\">" +
+		                                "<h3>" + data.dishName + 
+		                            "</div>" + 
+		                            "<div class=\"row\">" + 
+		                                "<b>Course:</b> " + data.course + "</h3>" +
+		                            "</div>" +
+		                            "<div class=\"row\">" +
+		                                "<b>Cuisine:</b> " + data.cuisine + "</h3>" +
+		                            "</div>" +
+		                            "<div class=\"row\">" +
+		                                "<b>Restaurant:</b> " + data.restName + "</h3>" +
+		                            "</div>" +
+		                        "</div>");
+		                } else {
+		                	console.log(data);
+		                }
+	                },
+	                error: function(xhr, ajaxOptions, thrownError){
+	                    alert("ERROR: Check your Internet Connection");
+	                }
+	            });
+        	}
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+            alert("ERROR: Check your Internet Connection");
+        }
+    });
+    $(document).off('click','#searchResult');
+    $(document).on('click','#searchResult',function(){
+            dishIDToLoad = $(this).attr('data-value');
+            if(dishIDToLoad!=null){
+                window.location.hash = "dish";
+            }
+        });
+</script>

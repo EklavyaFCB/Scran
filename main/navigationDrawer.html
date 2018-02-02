@@ -1,0 +1,140 @@
+<script src="js/hammer.min.js"></script>
+<script src="js/touch-menu-la.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<link rel="stylesheet" href="css/touch-menu-la.min.css">
+<link rel="stylesheet" href="css/sample.css">
+<header>
+    <i class="material-icons" id="menu-open"><img class="menuIcon" src="resources/navigationDrawer.png"></i>
+    <span class="title">Scran</span>
+    <div class="searchBarSpacing">
+    <form id="searchBar">
+        <input type="text2" name="search" id="search" placeholder="Search..">
+    </form></div>
+    <!-- <img class="searchButton" src="resources/search.png"> -->
+</header>
+<div id="menu" class="touch-menu-la">
+    <div class="inner-header">
+        <!-- Scran -->
+        <img height=75% src="icon.png">
+        <span id="uname" class="username"></span>
+    </div>
+    <ul class="menu-items">
+        <li>
+            <a href="#editprofile" onclick="TouchMenu.toggle()">
+                <div id="edit"><img src="resources/edit.png" alt="Edit Profile" height="20px" width="15px"><i class="fa"></i>&nbsp&nbspEdit </div>
+            </a>
+        </li>
+        <li>
+            <a href="#flaggedComments" style="display:none" onclick="TouchMenu.toggle()" id="adminLink">
+                <img src="resources/flag.png" alt="Help" height="20px" width="20px"><i id="comments" class="fa" ></i>&nbsp&nbspFlagged Comments
+            </a>
+        </li>
+        <li>
+            <a href="#addRestaurant" style="display:none" onclick="TouchMenu.toggle()" id="addRestaurant">
+                <img src="resources/plus.png" alt="Settings" height="20px" width="20px"><i class="fa"></i>&nbsp&nbspAdd New Restaurant
+            </a>
+        </li>
+        <li>
+            <a href="#addOffer" style="display:none" onclick="TouchMenu.toggle()" id="addNewOffer">
+                <img src="resources/plus.png" alt="Settings" height="20px" width="20px"><i class="fa"></i>&nbsp&nbspAdd New Offer
+            </a>
+        </li>
+        <hr>
+        <li>
+            <a href="mailto:scran.food@gmail.com" onclick="TouchMenu.toggle()">
+                <img src="resources/sendFeedback.png" alt="Send Feedback" height="20px" width="20px"><i class="fa"></i>&nbsp&nbspSend Feedback
+            </a>
+        </li>
+        <li>
+            <a href="#help" onclick="TouchMenu.toggle()" id="help">
+                <img src="resources/help.png" alt="Help" height="20px" width="20px"><i class="fa"></i>&nbsp&nbspHelp
+            </a>
+        </li>
+        <hr>
+        <li>
+            <a href="#" onclick="logout()">
+                <img src="resources/logOut.png" alt="Log Out" height="20px" width="20px"><i id="logout" class="fa"></i>&nbsp&nbspLog Out
+            </a>
+        </li>
+        <hr>
+    </ul>
+    <div class="inner-footer" align="center">
+        Scran<br><br>Helping you choose the dish you didn't know you wanted.
+    </div>
+</div>
+<script>
+    var dishIDToLoad,findADishDishes, restaurantIDToLoad, loggedInRestaurant, findDishResults, search=0, searchString, searchOption = "dish";
+     $(function(){
+        if(localStorage.userType=="Admin"){
+            $("#adminLink").attr("style","display:default");
+            $("#addNewOffer").attr("style","display:default");
+            $('#help').attr("href", "http://cgi.csc.liv.ac.uk/~u5dc/AdministratorUserManual.pdf");
+            // $("#edit").append("Your Profile");
+        };
+        if(localStorage.userType!="Restaurant"){
+            $("#addRestaurant").attr("style","display:default");
+            $("#edit").append("Your Profile");
+        };
+        if(localStorage.userType=="User"){
+            $('#help').attr("href","http://cgi.csc.liv.ac.uk/~u5dc/AppUserManual.pdf");
+        };
+        if (localStorage.userType=="Restaurant") {
+            $("#edit").append("Your Restaurant");
+            $("#addNewOffer").attr("style","display:default");
+            $('#help').attr("href","http://cgi.csc.liv.ac.uk/~u5dc/RestaurantUserManual.pdf");
+        };
+    });
+
+    var TouchMenu = TouchMenuLA({
+        target: document.getElementById('menu')
+    });
+    document.getElementById('menu-open').addEventListener('click', function(){
+        TouchMenu.toggle();
+    });
+    function logout(){
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("username");
+        localStorage.removeItem("userID");
+        localStorage.removeItem("userType");
+        
+        localStorage.removeItem("favDish");
+        localStorage.removeItem("favCuisine");
+        localStorage.removeItem("favRest");
+
+        window.location.replace("index.html");
+        //TouchMenu.toggle();
+    }
+    //Put username into nav drawer from localstorage
+    document.getElementById("uname").innerHTML = localStorage.username;
+    $(document).ready(function() {
+        $('#searchBar').submit(function(e){
+            //Prevent submission of form
+            e.preventDefault();
+            //Submit form
+            searchString = $('#search').val();
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/searchDish.php',
+                type:'post',
+                data:$('#searchBar').serialize(),
+                //MUST HAVE VALID JSON DATA RETURNED FOR SUCCESS FUNCTION
+                dataType: "json",
+
+                success: function(data){
+                    searchOption = "dish";
+                    findDishResults = data;
+                    if(search==0)
+                    {
+                        window.location.hash = "searchBarResults";
+                        search = 1;
+                    } else {
+                        window.location.hash = "searchBarResults2";
+                        search = 0;
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Check your Internet Connection");
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,26 @@
+.button.radio {
+	width:100px;
+	background-color: white;
+	color: black;
+	display: table-cell;
+}
+
+input[type="radio"]{
+	display: none;
+}
+
+input[type="radio"]:checked + label{
+	background-color: #FFD2B3;
+}
+
+#value {
+	text-align: left;
+}
+
+.row {
+	display: table-row;
+	position: center;
+	margin: auto;
+	text-align: center;
+	width: 100%;
+}

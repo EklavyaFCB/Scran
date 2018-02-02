@@ -1,0 +1,45 @@
+<?php
+    //Escape chars in string to prevent sql injection
+
+    $db_hostname = "mysql";
+    $db_database = "u5dc";
+    $db_username = "u5dc";
+    $db_password = "12-abcd-34";
+
+    $db_con = mysqli_connect($db_hostname,$db_username,$db_password,$db_database);
+    if (!$db_con) die("ERROR: Cannot connect to MySQL: ".mysqli_connect_error()."<br><br>");
+
+    //Check for username in db
+    $query = "SELECT TOP 10 userID, comment, flagged FROM DishReview WHERE flagged > 0;";
+    $result = mysqli_query($db_con, $query);
+    $row = mysqli_fetch_assoc($result);
+    
+    
+    if ($num_rows = mysqli_num_rows($result) == 0){
+        $data['success'] = false;
+        $data['message'] = 'No comments have been flagged';
+    } else {
+
+        for ($i=0, $i<=10, $i++) {
+            "SELECT User.username FROM User JOIN DishReview ON User.userID = DishReview.userID WHERE User.userID = '$userID';";
+        }
+
+
+
+
+
+
+        $query = "SELECT restID FROM Restaurant WHERE restName = '$name';";
+        $result = mysqli_query($db_con, $query);
+        $row = mysqli_fetch_assoc($result);
+
+        $restID = $row["restID"];
+        
+        $data['username'] = $name;
+        $data['restID'] = $restID; 
+        $data['userType'] = "Restaurant"; 
+        $data['success'] = true;
+	}
+    echo json_encode($data);
+    exit;
+?>

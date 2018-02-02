@@ -1,0 +1,84 @@
+<link rel="stylesheet" type="text/css" href="css/user.css" />
+    <!-- Main title -->
+    <h1>Enter offer details below:</h1>
+    <!-- Dish form -->
+    <form class="inputForm" name="addNewOffer" onclick="#" method="post" id="addNewOffer">
+        <b><p>Required</p></b>
+        <div class="inputForm">
+            <div id="nameField" class="row">
+            </div>
+            <br>
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Offer Description:    
+                </div>
+                <div class="tableCell">
+                    <textarea name="description" placeholder="Description" id="description"></textarea>
+                </div>
+            </div>
+			<br>
+			<div class="row">
+                <div class="tableCell" id="field">
+                    Requirements:&nbsp  <!-- This is the pop-up text -->
+                </div>
+                <div class="tableCell">
+                    <textarea name="requirements" placeholder="i.e. Only valid between 4-9pm" id="requirements"></textarea>
+				</div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <input id="submit" name="submit" value="Add" type="button" class="button">
+        </div>
+        <div class="row">
+            <input value="Cancel" type="button" onclick="history.back(1)" class="button">
+        </div>     
+    </form>
+    <!-- SCRIPT NEEDS TO BE EDITED -->
+    <script>
+	var userType = localStorage.userType;
+	var username = localStorage.username;
+	if (userType == 'Admin') {
+		var newNameField = "<div class='tableCell' id='field'>" + "Restaurant Name:" +
+			"</div>" + "<div class='tableCell'>" +
+			"<input type='text' name='restName' maxlength='40' placeholder='Restaurant Name' id='restName'>" +
+			"</div>";
+			
+		$("#nameField").append(newNameField);
+	}
+    $(document).ready(function() {
+        $(document).off('click','#submit');
+        $('#submit').on('click',function(e){
+			var dataToSend = {
+				username:username,
+				restName: $('#restName').val(),
+				description: $('#description').val(),
+				requirements: $('#requirements').val(),
+			}
+        	//Prevent submission of form
+            e.preventDefault();
+            //Submit form
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/addOffer.php',
+                type:'post',
+                data:dataToSend,
+                //MUST HAVE VALID JSON DATA RETURNED FOR SUCCESS FUNCTION
+                dataType: "json",
+
+                success: function(data){
+    				//Feeback for registration 
+                    alert(data.message);
+                    //Checks if account successfully registered
+                    if (data.success) {
+                    	//Redirect to home
+                        //writeUserData(data);
+                    	window.location.replace("home.html#offers");
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Check your Internet Connection");
+                }
+            });
+        });
+    });
+    </script>

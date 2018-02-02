@@ -1,0 +1,142 @@
+<link rel="stylesheet" type="text/css" href="css/flaggedComments.css" />
+<h1>Flagged Comments</h1>
+<div id="commentTable" class="commentTable">
+</div>
+<!-- <div class="flagComment">
+<div class="flagTable option">
+	<div class="flagRow">
+		<div class="flagCell decision">
+			<img class="decision" src="resources/tick.png"></img>
+		</div>
+	</div>
+	<div class="flagRow">
+		<div class="flagCell decision">
+			<img class="decision" src="resources/cross.png"></img>
+		</div>
+	</div>
+</div>
+<div class="flagTable">
+	<div class="flagRow">
+		<div id="username" class="flagCell">
+			<p></p>
+		</div>
+		<div id="flag" class="flagCell">
+			<p style="color:red; float:right">Flags: 5</p>
+		</div>
+	</div>
+</div>
+<div class="flagTable">
+	<div class="flagRow">
+		<div id="comment" class="flagCell comment">
+			<p>Why hello there! I am a block of code! Do you like my blockiness? I think it's fairly admirable. I guess as a flagged block of code, I need to say something abusive or racist... POOP!!</p>
+		</div>
+	</div>
+</div>
+</div> -->
+<script>
+var count;
+$(document).ready(function() {
+    $.ajax({
+        url:'http://cgi.csc.liv.ac.uk/~u5dc/flaggedCommentsCount.php',
+		type:'post',
+		dataType: "json",
+
+        success: function(data){
+            console.log(data.commentCount);
+            //Checks if account successfully registered
+			if (data.success) { 
+				//Put retrieved elements from DB in place
+				noOfComm = data.commentCount;
+                if(noOfComm>20){noOfComm=20;}
+				console.log("noOfComm:" +noOfComm);
+				for(count=0;count<noOfComm;count++){
+                    $.ajax({
+                        url:'http://cgi.csc.liv.ac.uk/~u5dc/flaggedComments.php',
+                        type:'post',
+                        data:{ count : count},
+                        dataType: "json",
+                        success: function(data){
+                            console.log("Response:"+data.username);
+                            $("#commentTable").append("" +
+                            "<div id=\"flagComment\" class=\"flagComment\">" +
+                                "<div class=\"flagTable option\">" +
+                                    "<div class=\"flagRow\">" +
+                                        "<div id=\"tick\" class=\"flagCell decision\" data-value=\" " + data.reviewID + "\">" +
+                                            "<img class=\"decision\" src=\"resources/tick.png\">" +"</img>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class=\"flagRow\">" +
+                                        "<div id=\"cross\" class=\"flagCell decision\" data-value=\" " + data.reviewID + "\">" +
+                                            "<img class=\"decision\" src=\"resources/cross.png\">" +"</img>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>" +
+                                "<div class=\"flagTable\">" +
+                                    "<div class=\"flagRow\">" +
+                                        "<div id=\"username\" class=\"flagCell\">" +
+                                            "<p>"+ data.username +"</p>" +
+                                        "</div>" +
+                                        "<div id=\"flag\" class=\"flagCell\">" +
+                                            "<p style=\"color:red; float:right\">" + "Flags: " + data.flagged + "</p>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>" +
+                                "<div class=\"flagTable\">" +
+                                    "<div class=\"flagRow\">" +
+                                        "<div id=\"comment\" class=\"flagCell comment\">" +
+                                            "<p>" +
+                                                data.comment + "</p>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>" +
+                            "</div></br>");
+                        },
+                        error: function(xhr, ajaxOptions, thrownError){
+                            alert("ERROR: Check your Internet Connection");
+                        }
+                    });
+                }
+                if(noOfComm==0){
+                    $("#commentTable").append("There are no flagged comments");
+                }
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+            alert("ERROR: Check your Internet Connection");
+        }
+	});
+});
+var action, reviewID;
+$(document).on('click','#tick',function(){
+        reviewID = $(this).attr('data-value');
+        action = 1;
+        $(this).parent().parent().parent().remove();
+        $.ajax({
+            url:'http://cgi.csc.liv.ac.uk/~u5dc/flaggedCommentsEdit.php',
+            type:'post',
+            data: {action:action, reviewID:reviewID},
+            success: function(data){
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert("ERROR: Check your Internet Connection");
+            }
+        });
+});
+$(document).on('click','#cross',function(){
+        reviewID = $(this).attr('data-value');
+        action = 0;
+        $(this).parent().parent().parent().remove();
+        $.ajax({
+            url:'http://cgi.csc.liv.ac.uk/~u5dc/flaggedCommentsEdit.php',
+            type:'post',
+            data: {action:action, reviewID:reviewID},
+            // dataType: "json",
+            success: function(data){
+                //Checks if account successfully registered
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert("ERROR: Check your Internet Connection");
+            }
+        });
+});
+</script>

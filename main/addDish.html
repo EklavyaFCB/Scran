@@ -1,0 +1,184 @@
+<link rel="stylesheet" type="text/css" href="css/user.css" />
+    <!-- Main title -->
+    <h1>Enter dish details below:</h1>
+    <!-- Dish form -->
+    <form class="inputForm" name="addNewDish" onclick="#" method="post" id="addNewDish">
+            <b><p>Required</p></b>
+        <div class="inputForm">
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Dish Name:     
+                </div>
+                <div class="tableCell">
+                    <input type="text" name="dishName" maxlength="40" placeholder="Dish Name" required="yes" id="dishName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Cuisine:    
+                </div>
+                <div class="tableCell">
+                    <select name="cuisine" required="yes" id="cuisine">
+						<option value="American">American</option>
+						<option value="British">British</option>
+						<option value="Caribbean">Caribbean</option>
+						<option value="Chinese">Chinese</option>
+						<option value="French">French</option>
+						<option value="Greek">Greek</option>
+						<option value="Indian">Indian</option>
+                        <option value="Italian">Italian</option>
+						<option value="Japanese">Japanese</option>
+						<option value="Mediterranean">Mediterranean</option>
+                        <option value="Mexican">Mexican</option>
+                        <option value="Moroccan">Moroccan</option>
+						<option value="Spanish">Spanish</option>
+						<option value="Thai">Thai</option>
+                        <option value="Turkish">Turkish</option>
+                        <option value="Vietnamese">Vietnamese</option>
+						<option value="Other">Other</option>
+					</select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Course: 
+                </div>
+                <div class="tableCell">
+                    <select name="course" required="yes" id="course">
+						<option value="Starter">Starter</option>
+						<option value="Side">Side</option>
+						<option value="Main">Main</option>
+						<option value="Dessert">Dessert</option>
+					</select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Diet :  
+                </div>
+                <div class="tableCell">
+                    <select name="diet" required="yes" id="diet">
+						<option value="Vegetarian">Vegetarian</option>
+						<option value="Vegan">Vegan</option>
+						<option value="Pescatarian">Pescatarian</option>
+                        <option value="Other">Other</option>
+					</select>
+                </div>
+            </div>
+			<br>
+			<div class="row">
+                <div class="tableCell" id="field">
+                    Main Ingredient 1:  
+                </div>
+                <div class="tableCell">
+                    <input type="text" name="mainIngredient1" maxlength="30" placeholder="e.g Cheese" required="yes" id="mainIngredient1">
+                </div>
+            </div>
+			<br>
+        </div>
+		<b><p>Optional</p></b>
+        <div class="inputForm">
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Main Ingredient 2:  
+                </div>
+                <div class="tableCell">
+                    <input type="text" name="mainIngredient2" maxlength="30" placeholder="e.g Beef" id="mainIngredient2">
+                </div>
+            </div>
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Main Ingredient 3:  
+                </div>
+                <div class="tableCell">
+                    <input type="text" name="mainIngredient3" maxlength="30" placeholder="e.g Tomato" id="mainIngredient3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Main Ingredient 4:  
+                </div>
+                <div class="tableCell">
+                    <input type="text" name="mainIngredient4" maxlength="30" placeholder="e.g Garlic" id="mainIngredient4">
+                </div>
+            </div>
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Main Ingredient 5:  
+                </div>
+                <div class="tableCell">
+                    <input type="text" name="mainIngredient5" maxlength="30" placeholder="e.g Chicken" id="mainIngredient5">
+                </div>
+            </div>
+			<br>
+			<div class="row">
+                <div class="tableCell" id="field">
+                    Description:&nbsp  
+                </div>
+                <div class="tableCell">
+                    <textarea name="description" placeholder="Description" id="description"></textarea>
+                </div>
+            </div>
+			<br>
+			<div class="row">
+                <div class="tableCell" id="field">
+                    Other Requirements:&nbsp  
+                </div>
+                <div class="tableCell">
+                    <textarea name="specialReq" placeholder="e.g. Gluten Free" id="specialReq"></textarea>
+				</div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <input id="submit" name="submit" value="Add" type="button" class="button">
+        </div>
+        <div class="row">
+            <input value="Cancel" type="button" onclick="history.back(1)" class="button">
+        </div>     
+    </form>
+    <script>
+    $(document).ready(function() {
+        $(document).off('click','#submit');
+        $('#submit').on('click',function(e){
+			var dataToSend = {
+				restIDToLoad:restIDToLoad,
+				dishName: $('#dishName').val(),
+				cuisine: $('#cuisine').val(),
+				course: $('#course').val(),
+				diet: $('#diet').val(),
+				mainIngredient1: $('#mainIngredient1').val(),
+				mainIngredient2: $('#mainIngredient2').val(),
+				mainIngredient3: $('#mainIngredient3').val(),
+				mainIngredient4: $('#mainIngredient4').val(),
+				mainIngredient5: $('#mainIngredient5').val(),
+				description: $('#description').val(),
+				specialReq: $('#specialReq').val(),
+			}
+        	//Prevent submission of form
+            e.preventDefault();
+            //Submit form
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/addDish.php',
+                type:'post',
+                data:dataToSend,
+                //MUST HAVE VALID JSON DATA RETURNED FOR SUCCESS FUNCTION
+                dataType: "json",
+
+                success: function(data){
+    				//Feeback for registration 
+                    alert(data.message);
+                    //Checks if account successfully registered
+                    if (data.success) {
+                    	//Redirect to home
+                        //writeUserData(data);
+                    	window.location.replace("history.back(1)");
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Check your Internet Connection");
+                }
+            });
+        });
+    });
+    </script>

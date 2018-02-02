@@ -1,0 +1,161 @@
+body {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+	font-size: 14px;
+	height: 100%;
+	width: 100%;
+	padding-bottom: 17%;
+/*	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;*/
+}
+
+h1 {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 8vw;
+    font-weight: normal;
+    overflow: visible;
+    text-align: center;
+    color: #FE8B55;
+    padding-bottom: 3%;
+    padding-top: 2%;
+    margin: auto;
+}
+
+h2 {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 6vw;
+    font-weight: normal;
+    overflow: visible;
+    text-align: center;
+    color: black;
+}
+
+h3 {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 4vw;
+    font-weight: normal;
+    overflow: visible;
+    text-align: center;
+    color: black;
+    margin:auto;
+}
+
+.mainContent {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+	position: center;
+	padding: 5%;
+	padding-top:65px;
+	height: 100%;
+	width:90%;
+}
+
+.header {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+	font-size: 5vw;
+	background-color: #FFCF7D;
+	font-weight: bold;
+	text-decoration: none;
+	position: center;
+	margin: auto;
+	padding: 3%;
+	overflow: visible;
+	text-align: center;
+	border: 1.5vw solid white;
+}
+
+.inputForm {
+	text-align: center;
+	margin: auto;
+	position: center;
+	display: table;
+	width: 100%;
+}
+
+.table {
+	display: table;
+	position: center;
+	margin: auto;
+	width:100%;
+}
+
+.button {
+	position: center;
+	margin: auto;
+	width: 50%;
+	color: white;
+	text-align: center;
+	font-size: 4vw;
+	background-color: #FE8B55;
+	text-decoration: none;
+	border: solid;
+	padding: 3%;
+}
+
+.link {
+	text-decoration: none;
+}
+
+.row {
+	display: table-row;
+	position: center;
+	margin: auto;
+	text-align: center;
+}
+
+.tableCell {
+	display: table-cell;
+	position: center;
+	margin: auto;
+	width: 50%;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#field {
+	text-align: right;
+}
+
+#value {
+	text-align: left;
+}
+
+.button.notSelected {
+	background-color: #FFE3B3;
+	color: black;
+	display: table-cell;
+	padding: 5px;
+	height: 30px;
+	border: 1.5vw solid white;
+	vertical-align: middle;
+}
+
+.button.radio {
+	background-color: white;
+	color: black;
+	border: 0px;
+}
+
+.icon {
+	text-align: center;
+	display: table-row;
+}
+
+.accountElements {
+	padding-top: 20%;
+	display: table;
+	position: center;
+	text-align: center;
+	margin: auto;
+}
+
+input[type=text], textarea, select, input[type=email], input[type=password] {
+    /*width: 130px;*/
+    box-sizing: border-box;
+    border: 2px solid white;
+    /*border-radius: 4px;*/
+    font-size: 16px;
+    background-color: #FFE3B3;
+    padding: 8px 20px 8px 12px;
+    -webkit-transition: width 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out;
+    float:left;
+}

@@ -1,0 +1,39 @@
+.navTable {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    display: table;
+    margin: auto;
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    background-color: white;
+    width:100%;
+    border-top: grey solid 1px;
+}
+
+.navRow {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+    width: 20%;
+    text-align: center;
+    padding-top: 8px;
+}
+
+.link-cell {
+    text-decoration: none;
+    color: black;
+    font-size: 3vw;
+    font-weight: bold;
+    display: table-cell;
+    width: 20%;
+    text-align: center; 
+    padding-bottom: 8px;
+}
+
+.navIcon {
+    height:auto;
+    width:50%;
+}

@@ -1,0 +1,122 @@
+<link rel="stylesheet" type="text/css" href="css/profile.css" />
+    <div class="userInfoWrapper"> 
+        <h1>Edit Restaurant</h1><br>
+        <div id="userfavourites">
+            <h3 class="header">Current Info</h3>
+            <div class="sectionTable" id="myFavourites">
+                <div class="tableRow">
+                    <h3 id="restName"><b>Name:&nbsp</b></h3><br>
+                </div>
+                <div class="tableRow">
+                    <h3 id="restEmail"><b>Email:&nbsp</b></h3><br>
+                </div>
+                <div class="tableRow">
+                    <h3 id="restDescription"><b>Description:&nbsp</b></h3><br>
+                </div>
+                <div class="tableRow">
+                    <h3 id="restAddress"><b>Address:&nbsp</b></h3><br>
+                </div>
+            </div>
+        </div>
+        <div id="userFavourites">
+            <br><h3 class="header">Edit Info</h3>
+            <div class="sectionTable" id="myFavourites">
+                <form class="inputForm" onclick="#" method="post" id="editRestForm" name="editRestForm">
+                    <div class="sectionTable">
+                        <div class="tableRow" id="left">
+                            <div class="tableCell" id="right">
+                                <b>Name:</b>
+                            </div>
+                            <div class="tableCell">
+                                <input id="nameForm" type="text" name="nameForm"><br>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="tableRow" id="left">
+                            <div class="tableCell" id="right">
+                                <b>Email:</b>
+                            </div>
+                            <div class="tableCell">
+                                <input id="emailForm" type="text" name="emailForm">
+                            </div>
+                        </div>
+                        <div class="tableRow" id="left">
+                            <div class="tableCell" id="right">
+                                <b>Description:</b>
+                            </div>
+                            <div class="tableCell">
+                                <input id="descriptionForm" type="text" name="descriptionForm">
+                            </div>
+                        </div>
+                        <div class="tableRow" id="left">
+                            <div class="tableCell" id="right">
+                                <b>Address:</b>
+                            </div>
+                            <div class="tableCell">
+                                <input id="addressForm" type="text" name="addressForm" value=""><br>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="sectionTable">
+                        <div class="tableRow">
+                            <h3><b>Please note:</b>You must edit all of the information, as your old information will be removed.If any information is the same as previous, please enter it again</h3><br>
+                        </div>
+                    </div>
+                    <br><br>
+                    <input id="submitEditRest" name="submitEditRest" type="submit" value="Save" class="button">
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        // Ajax
+        var restID = localStorage.restID;
+
+        $(document).ready(function() {
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/editrestaurant.php',
+                type:'post',
+                dataType: "json",
+                data: {restID : restID},
+
+                success: function(data){
+                    $("#restName").append(data.restName);
+                    $("#restDescription").append(data.description);
+                    $("#restEmail").append(data.email);
+                    $("#restAddress").append(data.address);
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Check your Internet Connection");
+                    console.log("Error");
+                }
+            });
+
+            $('#editRestForm').submit(function(e) {
+                var dataToSend = {
+                    restID : restID,
+                    nameForm: $('#nameForm').val(),
+                    emailForm: $('#emailForm').val(),
+                    descriptionForm: $('#descriptionForm').val(),
+                    addressForm: $('#addressForm').val(),
+                }
+                e.preventDefault();
+                $.ajax({
+                    url:'http://cgi.csc.liv.ac.uk/~u5dc/editrestaurantupdate.php',
+                    type: 'post',
+                    data: dataToSend,
+                    dataType: 'json',
+
+                    success: function(data){
+                        $("#mainContent").load("restaurant.html");
+                    },
+                    error: function(xhr, ajaxOptions, thrownError){
+                        alert("ERROR: Check your Internet Connection");
+                        console.log("Error");
+                    }
+                });
+            });
+        });
+
+    </script>

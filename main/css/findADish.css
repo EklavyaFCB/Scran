@@ -1,0 +1,34 @@
+#left {
+	border-left: 1.5vw solid white;
+}
+
+#right {
+	border-right: 1.5vw solid white;
+}
+
+.button.notSelected.dish {
+	border: 1vw solid white;
+	width: 20%;
+	display: table-cell;
+}
+
+.sections {
+	margin: auto;
+	width:100%;
+}
+
+input[type="checkbox"]{
+	display: none;
+}
+
+input[type="checkbox"]:checked + label{
+	background-color: #FE8B55;
+}
+
+input[type="radio"]{
+	display: none;
+}
+
+input[type="radio"]:checked + label{
+	background-color: #FE8B55;
+}

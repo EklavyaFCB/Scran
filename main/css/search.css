@@ -1,0 +1,53 @@
+input[type="radio"]{
+	display: none;
+}
+
+input[type="radio"]:checked + label{
+	background-color: #FE8B55;
+}
+
+.radioButton {
+	background-color: #CCCCCC;
+	color: black;
+	display: table-cell;
+	padding: 3%;
+	border: 1.5vw solid white;
+	vertical-align: middle;
+	margin: auto;
+	width: 50%;
+}
+
+.searchResult {
+	background-color: #FFE3B3;
+	margin: auto;
+	display:table;
+	border-style: solid;
+	border-color: white;
+	border-width: 1.5vw;
+	padding: 5%;
+	width:80%;
+}
+
+h3 {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 4vw;
+    font-weight: bold;
+    overflow: visible;
+    text-align: center;
+    color: black;
+    margin:auto;
+}
+
+h4 {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 4vw;
+    font-weight: normal;
+    overflow: visible;
+    text-align: center;
+    color: black;
+    margin:auto;
+}
+
+#center {
+	text-align: center;
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <script src="js/jquery-1.10.2.js"></script>
+    	<title>User Log In</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1,
+        	user-scalable=no, width=device-width">
+        <meta name="author" content="Lucy Rogers and Tom French">
+        <meta name="copyright" content="Lucy Rogers and Tom French 2017">
+        <meta name="date" content="2017-04-03" scheme="YYYY-MM-DD">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/user.css" />
+    </head>
+
+    <body>
+    	<div class="mainContent">
+            <!-- Main title -->
+            <h1>Enter your details below:</h1><br>
+            <!-- Login form -->
+            <form class="inputForm" name="userLogIn" method="post" id="userLogIn">
+                <div class="inputForm">
+                    <div class="row">
+                        <div class="tableCell" id="field">
+                            Username:   <!-- First field is username --> 
+                        </div>
+                        <div class="tableCell">
+                            <input type="text" name="username" maxlength="40" placeholder="Username" required="yes" id="value">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tableCell" id="field">
+                            Password:   <!-- Next field is password --> 
+                        </div>
+                        <div class="tableCell">
+                            <input type="password" name="password" maxlength="40" placeholder="Password" required="yes" id="value">
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <!-- This section is for the buttons to either log in to an account, or cancel and go back to the previous screen --> 
+                <div class="row">
+                    <input value="Log In" type="submit" class="button">
+                </div>
+                <div class="row">
+                    <input value="Cancel" type="button" onclick="location.href='index.html'" class="button">
+                </div>
+                <!-- This section links to restaurant log in page -->
+                <br><br><br>
+                <div class="row">
+                    <h3>Are you a restaurant?</h3><br>
+                </div>
+                <div class="row">
+                    <input value="Log In Here" type="button" onClick="location.href='restaurantLogin.html'" class="button">
+                </div>
+            </form>
+        </div>
+
+        <script>    
+        $(document).ready(function() {
+            $('#userLogIn').submit(function(e){
+                e.preventDefault();
+                $.ajax({
+                    url:'http://cgi.csc.liv.ac.uk/~u5dc/login.php',
+                    type:'post',
+                    data:$('#userLogIn').serialize(),
+                    dataType: "json",
+
+                    success: function(data){
+                        if (data.success) {
+                            writeUserData(data);
+                            window.location.replace("home.html#home");  
+                        } else {
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError){
+                        alert("ERROR: Check your Internet Connection");
+                    }
+                });
+            });
+        });
+
+        function writeUserData(data) {
+            localStorage.loggedIn = true;
+            localStorage.username = data.username;
+            localStorage.userID = data.userID;
+            localStorage.userType = data.userType;
+        }
+    </script>
+    </body>
+</html>

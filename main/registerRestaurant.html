@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="js/jquery-1.10.2.js"></script>
+    	<title>Register Restaurant</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1,
+        	user-scalable=no, width=device-width">
+        <meta name="author" content="Lucy Rogers and Tom French">
+        <meta name="copyright" content="Lucy Rogers and Tom French 2017">
+        <meta name="date" content="2017-04-03" scheme="YYYY-MM-DD">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/restaurant.css" />
+    </head>
+    <body>
+
+    	<div class="mainContent">
+    		<h1>Enter your details below:</h1><br><br>
+            <form class="inputForm" name="registerNewRestaurant" onclick="#" method="post" id="registerNewRestaurant">
+                <div class="inputForm">
+                    <div class="row">
+                        <div class="tableCell" id="field">
+                            Restaurant Name:
+                        </div>
+                        <div class="sectionCell">
+                            <input type="text" name="restaurantName" maxlength="40" placeholder="Restaurant Name" required="yes" id="value">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tableCell" id="field">
+                            Email:
+                        </div>
+                        <div class="tableCell">
+                            <input type="email" name="email" maxlength="40" placeholder="Email" required="yes" id="value">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tableCell" id="field">
+                            Address:
+                        </div>
+                        <div class="tableCell">
+                            <input type="text" name="address" maxlength="40" placeholder="Address" required="yes" id="value">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="tableCell" id="field">
+                            Password:
+                        </div>
+                        <div class="tableCell">
+                            <input type="password" name="password" maxlength="40" placeholder="Password" required="yes" id="value">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tableCell" id="field">
+                            Re-enter Password:
+                        </div>
+                        <div class="tableCell">
+                            <input type="password" name="passwordReenter" maxlength="40" placeholder="Re-enter Password" required="yes" id="value">
+                        </div>
+                    </div>
+					<br>
+					<div class="row">
+                        <div class="tableCell" id="field">
+                            Description:
+                        </div>
+                        <div class="tableCell">
+                            <textarea name="description"  placeholder="Please describe your restaurant" id="value"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <div class="row">
+                    <input value="Register" type="submit" class="button">
+                </div>
+                <div class="row">
+                    <input value="Cancel" type="button" onclick="location.href='index.html'" class="button">
+                </div>
+            </form>
+        </div>
+    <script>
+    $(document).ready(function() {
+        $('#registerNewRestaurant').submit(function(e){
+        	//Prevent submission of form
+            e.preventDefault();
+            //Submit form
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/registerRestaurant.php',
+                type:'post',
+                data:$('#registerNewRestaurant').serialize(),
+                //MUST HAVE VALID JSON DATA RETURNED FOR SUCCESS FUNCTION
+                dataType: "json",
+
+                success: function(data){
+                    console.log(data);
+    				//Feeback for registration 
+                    alert(data.message);
+                    //Checks if account successfully registered
+                    if (data.success) {
+                    	//Redirect to home
+                        writeUserData(data);
+                        //Relocate to restaurant page
+                    	window.location.replace("restaurantLogin.html");	
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Check your Internet Connection");
+                }
+            });
+        });
+    });
+
+    function writeUserData(data) {
+            localStorage.username = data.name;
+            localStorage.userID = data.restID;
+            localStorage.userType = data.userType;
+        }
+    </script>
+    </body>
+</html>

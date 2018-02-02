@@ -1,0 +1,115 @@
+<link rel="stylesheet" type="text/css" href="css/profile.css" />
+    <div class="userInfoWrapper"> 
+        <h1>Edit Profile</h1><br>
+        <div id="userfavourites">
+            <h3 class="header">My Info</h3>
+            <div class="sectionTable" id="myFavourites">
+                <div class="tableRow">
+                    <h3><b>Not editable:</b></h3><br>
+                </div>
+                <div class="tableRow">
+                    <h3 id="username"><b>Username:&nbsp</b></h3><br>
+                </div>
+                <div class="tableRow">
+                    <h3 id="email"><b>Email:&nbsp</b></h3><br>
+                </div>
+            </div>
+        </div>
+        <div id="userFavourites">
+            <br><h3 class="header">My Favourites</h3>
+            <div class="sectionTable" id="myFavourites">
+                <div class="tableRow">
+                    <h3><b>Editable:</b></h3><br>
+                </div>
+                <form class="inputForm" onclick="#" method="post" id="editProfileForm" name="editProfileForm">
+                    <div class="sectionTable">
+                        <div class="tableRow" id="left">
+                            <div class="tableCell" id="right">
+                                <b>Restaurant:</b>
+                            </div>
+                            <div class="tableCell">
+                                <input id="favRestForm" type="text" name="favRestForm" placeholder="Casa Italia Liverpool">
+                            </div>
+                        </div>
+                        <div class="tableRow" id="left">
+                            <div class="tableCell" id="right">
+                                <b>Cuisine:</b>
+                            </div>
+                            <div class="tableCell">
+                                <input id="favCuisineForm" type="text" name="favCuisineForm" placeholder="Italian">
+                            </div>
+                        </div>
+                        <div class="tableRow" id="left">
+                            <div class="tableCell" id="right">
+                                <b>Dish:</b>
+                            </div>
+                            <div class="tableCell">
+                                <input id="favDishForm" type="text" name="favDishForm" placeholder="Spaghetti Carbonara"><br>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="tableRow">
+                        <h3><b>Please note:</b>You must edit all of the favourites, as your old favourites will be removed.If any information is the same as previous, please enter it again</h3><br>
+                    </div>
+                    <input id="saveButton" type="submit" value="Save" class="button">
+                </form>
+                <h3 id="favRest"></h3>
+                <h3 id="favCuisine"></h3>
+                <h3 id="favDish"></h3>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        // Ajax
+        var usn = localStorage.username;
+        var usnID = localStorage.userID;
+
+        $(document).ready(function() {
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/profile.php',
+                type:'post',
+                dataType: "json",
+                data: {usn : usn, usnID : usnID},
+
+                success: function(data){
+                    $("#username").append(localStorage.username);
+                    $("#email").append(data.email);
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Check your Internet Connection");
+                }
+            });
+
+            $('#editProfileForm').submit(function(e){ 
+                e.preventDefault();
+                $.ajax({
+                    url:'http://cgi.csc.liv.ac.uk/~u5dc/editprofile.php',
+                    type: 'post',
+                    data: $('#editProfileForm').serialize(),
+                    dataType: 'json',
+
+                    success: function(data){
+                        writeUserData(data);
+
+                        $("#favDish").append(data.favDish);
+                        $("#favCuisine").append(data.favCuisine);
+                        $("#favRest").append(data.favRest);
+
+                        window.location.replace("home.html#profile");
+                    },
+                    error: function(xhr, ajaxOptions, thrownError){
+                        alert("ERROR: Check your Internet Connection");
+                    }
+                });
+            });
+        });
+
+        function writeUserData(data) {
+            localStorage.favRest = data.favRest;
+            localStorage.favCuisine = data.favCuisine;
+            localStorage.favDish = data.favDish;
+        }
+    </script>

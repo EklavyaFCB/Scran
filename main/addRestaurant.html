@@ -1,0 +1,76 @@
+<link rel="stylesheet" type="text/css" href="css/user.css" />
+    <!-- Main title -->
+    <h1>Enter restaurant details below:</h1><br><br>
+    <!-- Dish form -->
+    <form class="inputForm" name="addNewRestaurant" onclick="#" method="post" id="addNewRestaurant">
+        <div class="inputForm">
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Restaurant Name:     
+                </div>
+                <div class="tableCell">
+                    <input type="text" name="restName" maxlength="40" placeholder="Restaurant Name" required="yes" id="value">
+                </div>
+            </div>
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Email:    
+                </div>
+                <div class="tableCell">
+                    <input type="text" name="email" maxlength="40" placeholder="Email" required="yes" id="value">
+                </div>
+            </div>
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Address: 
+                </div>
+                <div class="tableCell">
+                    <input type="text" name="address" placeholder="Address" required="yes" id="value">
+                </div>
+            </div>
+            <div class="row">
+                <div class="tableCell" id="field">
+                    Description:  
+                </div>
+                <div class="tableCell">
+                    <textarea name="description" placeholder="Description" id="value"></textarea>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <input value="Add" type="submit" class="button">
+        </div>
+        <div class="row">
+            <input value="Cancel" type="button" onclick="history.back(1)" class="button">
+        </div>     
+    </form>
+    <script>
+    $(document).ready(function() {
+        $('#addNewRestaurant').submit(function(e){
+        	//Prevent submission of form
+            e.preventDefault();
+            //Submit form
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/addRestaurant.php',
+                type:'post',
+                data:$('#addNewRestaurant').serialize(),
+                //MUST HAVE VALID JSON DATA RETURNED FOR SUCCESS FUNCTION
+                dataType: "json",
+
+                success: function(data){
+    				//Feeback for registration 
+                    alert(data.message);
+                    //Checks if account successfully registered
+                    if (data.success) {
+                    	//Redirect to home
+                    	window.location.replace("home.html#home");
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Check your Internet Connection");
+                }
+            });
+        });
+    });
+    </script>

@@ -1,0 +1,101 @@
+<link rel="stylesheet" type="text/css" href="css/nav.css" />
+<nav>
+    <div class="navTable" id="navTable">
+        <div class="navRow">
+            <a id="homeButton" class="cell" href="#home"><img id="1" class="navIcon" src="./resources/homeInactive.png" alt="Home"/></a>
+            <a id="topPicksButton" class="cell" href="#toppicks"><img id="2" class="navIcon" src="./resources/toppicksInactive.png" alt="Home"/></a>
+            <a id="findADishButton" class="cell" href="#findadish"><img id="3" class="navIcon" src="./resources/findadishInactive.png" alt="Home"/></a>
+            <a id="offersButton" class="cell" href="#offers"><img id="4" class="navIcon" src="./resources/offersInactive.png" alt="Home"/></a>
+            <a id="profileButton" class="cell" href="#profile"><img id="5" class="navIcon" src="./resources/profileInactive.png" alt="Home"/></a>
+        </div>
+        <div class="navRow" id="nav">
+            <a id="homeButton" class="link-cell" href="#home">Home</a>
+            <a id="topPicksButton" class="link-cell" href="#toppicks">Top 10</a>
+            <a id="findADishButton" class="link-cell" href="#findadish">Find A Dish</a>
+            <a id="offersButton" class="link-cell" href="#offers">Offers</a>
+            <a id="profileButton" class="link-cell" href="#profile">Profile</a>
+        </div>
+    </div> 
+    <script>
+            (function( $ ){
+                $.fn.grayButtons = function() {
+                    $("#1").attr("src","resources/homeInactive.png");
+                    $("#2").attr("src","resources/toppicksInactive.png");
+                    $("#3").attr("src","resources/findadishInactive.png");
+                    $("#4").attr("src","resources/offersInactive.png");
+                    $("#5").attr("src","resources/profileInactive.png");
+                    return this;
+                }; 
+            })( jQuery );
+            (function( $ ){
+                $.fn.changeButtons = function() {
+                    if(location.hash=="#home") {
+                        $("#mainContent").load("homepage.html");
+                        $('#navTable').grayButtons();
+                        $("#1").attr("src","resources/home.png");
+                    } else if(location.hash=="#toppicks") {
+                        $("#mainContent").load("topPicks.html");
+                        $('#navTable').grayButtons();
+                        $("#2").attr("src","resources/toppicks.png");
+                    } else if(location.hash=="#findadish") {
+                        $("#mainContent").load("findADish.html");
+                        $('#navTable').grayButtons();
+                        $("#3").attr("src","resources/findadish.png");
+                    } else if(location.hash=="#offers") {
+                        $("#mainContent").load("offers.html");
+                        $('#navTable').grayButtons();
+                        $("#4").attr("src","resources/offers.png");
+                    } else if(location.hash=="#profile"){
+                        if(localStorage.userType=="Restaurant"){
+                            restaurantIDToLoad = localStorage.restID;
+                            $("#mainContent").load("restaurant.html");
+                        } else {
+                            $("#mainContent").load("profile.html");
+                        }
+                        $('#navTable').grayButtons();
+                        $("#5").attr("src","resources/profile.png");
+                    } else if(location.hash=="#flaggedComments"){
+                        $("#mainContent").load("flaggedComments.html");
+                        $('#navTable').grayButtons();
+                    } else if(location.hash=="#restaurant"){
+                        // restaurantIDToLoad = 25;
+                        $("#mainContent").load("restaurant.html");
+                        $('#navTable').grayButtons();
+                    } else if(location.hash=="#addDish"){
+                        $("#mainContent").load("addDish.html");
+                        $('#navTable').grayButtons();
+                    } else if(location.hash=="#dish"){
+                        $("#mainContent").load("dish.html");
+                        $('#navTable').grayButtons();
+                    } else if(location.hash=="#editprofile"){
+                        if (localStorage.userType=="Restaurant") {
+                            $("#mainContent").load("editrestaurant.html");
+                        } else {
+                            $("#mainContent").load("editprofile.html");
+                        }
+                    } else if(location.hash=="#addRestaurant"){
+                        $("#mainContent").load("addRestaurant.html");
+                        $('#navTable').grayButtons();
+					} else if(location.hash=="#addOffer"){
+                        $("#mainContent").load("addOffer.html");
+						$('#navTable').grayButtons();
+                    }  else if(location.hash=="#search"){
+                        $("#mainContent").load("searchResults.html");
+                        $('#navTable').grayButtons();
+                    } else if(location.hash=="#searchBarResults"){
+                        $("#mainContent").load("searchBarResults.html");
+                        $('#navTable').grayButtons();
+                    } else if(location.hash=="#searchBarResults2"){
+                        $("#mainContent").load("searchBarResults2.html");
+                        $('#navTable').grayButtons();
+                    }
+                    return this;
+                }; 
+            })( jQuery );
+            $("#navTable").changeButtons();
+            $(window).on('hashchange',function()
+            { 
+                $("#navTable").changeButtons();
+            });
+    </script> 
+</nav>

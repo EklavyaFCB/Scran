@@ -1,0 +1,112 @@
+.header {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+	font-size: 5vw;
+	background-color: white;
+	font-weight: normal;
+	text-decoration: none;
+	position: center;
+	margin: auto;
+	padding: 2%;
+	overflow: visible;
+	text-align: left;
+}
+
+.header.menu {
+	background-color: #FFCF7D;
+	font-weight: bold;
+	text-align: center;
+}
+
+.subheader {
+	font-size: 4vw;
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+	background-color: white;
+	font-weight: normal;
+	text-decoration: none;
+	position: center;
+	margin: auto;
+	padding: 2%;
+	padding-left: 10%;
+	overflow: visible;
+	text-align: left;
+}
+
+.restaurantInfo {
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+	font-size: 4vw;
+	background-color: white;
+	font-weight: normal;
+	text-decoration: none;
+	position: center;
+	margin: auto;
+	padding: 3%;
+	overflow: visible;
+	text-align: center;
+	border: 1.5vw solid white;
+}
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+}
+
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+.sectionTable {
+	display: table;
+	position: center;
+	margin: auto;
+	width: 87.5%;
+}
+
+#myFavourites {
+	background-color: #FFE3B3;
+	color: black;
+	padding: 5%;
+	border: 1.5vw solid white;
+	vertical-align: middle;
+	text-decoration: none;
+	text-align: center;
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}

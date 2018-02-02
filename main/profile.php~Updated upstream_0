@@ -1,0 +1,72 @@
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<link rel="stylesheet" type="text/css" href="css/profile.css" />
+    <div class="userInfoWrapper"> 
+        <?php
+            // Database Variables
+            $db_hostname = "mysql";
+            $db_database = "u5dc";
+            $db_username = "u5dc";
+            $db_password = "12-abcd-34";
+
+            // Connection to database
+            $con = mysqli_connect($db_hostname,$db_username,$db_password,$db_database);
+            if (!$con) die("Unable to connect to MySQL: ".mysqli_connect_error());
+
+            // Encoding all characters interacting with MySQL in UTF-8
+            mysqli_set_charset($con,"utf8");
+
+            // Query processing
+            $getUsername = "SELECT username FROM User WHERE UserID = 1";
+
+            $result = mysqli_query($con,$getUsername);
+            $result || die("Database access failed: ".mysqli_error($con));
+            $row = mysqli_fetch_row($result);
+
+            echo "<h1>".$row[0]."</h1><br>";
+            // <h1>Username</h1><br> 
+
+            // Free result set
+            mysqli_free_result($result);
+
+            // Close connection
+            mysqli_close($con);
+        ?>
+        
+        <div class="userFavourites">
+            <h3>My Favourites</h3>
+            <b>Restaurant:</b> Nando's<br>
+            <b>Cuisine:</b> Italian<br>
+            <b>Dish:</b> Spaghetti Carbonara</p>
+        </div>
+    </div>
+    <br>
+    <div>
+        <h3 class="header">Recent Dishes</h3>
+        <div class="dishEntries">
+            <div class="tableRow">
+                <div class="dishEntry">
+                    Dish name<br>Dish description
+                </div>
+                <div class="dishEntry">
+                    Dish name<br>Dish description
+                </div>
+            </div>
+            <div class="tableRow">
+                <div class="dishEntry">
+                    Dish name<br>Dish description
+                </div>
+                <div class="dishEntry">
+                    Dish name<br>Dish description
+                </div>
+            </div>
+            <div class="tableRow">
+                <div class="dishEntry">
+                    Dish name<br>Dish description
+                </div>
+                <div class="dishEntry">
+                    Dish name<br>Dish description
+                </div>
+            </div>   
+        </div>
+    </div>
+    

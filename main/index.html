@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<title>Welcome</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <meta name="author" content="Lucy Rogers and Tom French">
+        <meta name="copyright" content="Lucy Rogers and Tom French 2017">
+        <meta name="date" content="2017-04-03" scheme="YYYY-MM-DD">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="shortcut icon" href="icon.png">
+        <script src="js/jquery-1.10.2.js"></script>
+    </head>
+    <body>
+    	<div class="mainContent">
+            <div class="accountElements">
+                <div class="icon">
+                    <img src="icon.png">
+                </div>
+            </div>
+            <div class="inputForm">
+                <div class="row">
+            		  <h1>Scran</h1><br>
+                </div>
+                <div class="row">
+                    <input value="Register" type="button" onClick="location.href='registerUser.html'" class="button">
+                </div>
+                <br>
+                <div class="row">
+                    <input value="Log In" type="button" onClick="location.href='loginUser.html'" class="button">
+                </div>
+            </div>
+    	</div>
+        <!-- <a href="home.html#home">[DEBUG VERSION BYPASS]</a> -->
+        <script>
+            if (localStorage.loggedIn == "true") {
+                window.location.replace("home.html#home");
+            }
+        </script>
+    </body>
+</html>

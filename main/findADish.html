@@ -1,0 +1,141 @@
+<html>
+<link rel="stylesheet" type="text/css" href="css/findADish.css" />
+	<h1>Find A Dish</h1>
+	<h3>Make your selections below:</h3><br>
+	<form class="inputForm" name="findADish" onclick="#" method="post" id="findADish">
+		<div id="course" class="sections">
+			<div class="header">
+				Course<br>
+			</div>
+			<div id="courseChoices" class="row">
+				<input type="checkbox" name="course[]" value="Starter" id="starter">
+				<label for="starter" class="button notSelected dish" id="left">Starter</label>
+				<input type="checkbox" name="course[]" value="Main" id="main">
+				<label for="main" class="button notSelected dish">Main</label>
+				<input type="checkbox" name="course[]" value="Dessert" id="dessert">
+				<label for="dessert" class="button notSelected dish">Dessert</label>
+				<input type="checkbox" name="course[]" value="Side" id="sideDish">
+				<label for="sideDish" class="button notSelected dish" id="right">Side</label>
+			</div>
+		</div>
+		<br>
+		<div id="dishCuisine" class="sections">
+			<div class="header">
+				Cuisine<br>
+			</div>
+			<div id="dishCuisineChoices1" class="row">
+				<input type="checkbox" name="cuisine[]" value="American" id="american">
+				<label for="american" class="button notSelected dish" id="left">American</label>
+				<input type="checkbox" name="cuisine[]" value="British" id="british">
+				<label for="british" class="button notSelected dish">British</label>
+				<input type="checkbox" name="cuisine[]" value="Caribbean" id="caribbean">
+				<label for="caribbean" class="button notSelected dish">Caribbean</label>
+				<input type="checkbox" name="cuisine[]" value="Chinese" id="chinese">
+				<label for="chinese" class="button notSelected dish" id="right">Chinese</label>
+			</div>
+			<div id="dishCuisineChoices2" class="row">
+				<input type="checkbox" name="cuisine[]" value="French" id="french">
+				<label for="french" class="button notSelected dish" id="left">French</label>
+				<input type="checkbox" name="cuisine[]" value="Indian" id="indian">
+				<label for="indian" class="button notSelected dish">Indian</label>
+				<input type="checkbox" name="cuisine[]" value="Mediterranean" id="mediterranean">
+				<label for="mediterranean" class="button notSelected dish">Mediterranean</label>
+				<input type="checkbox" name="cuisine[]" value="Italian" id="italian">
+				<label for="italian" class="button notSelected dish" id="right">Italian</label>
+			</div>
+			<div id="dishCuisineChoices3" class="row">
+				<input type="checkbox" name="cuisine[]" value="Japanese" id="japanese">
+				<label for="japanese" class="button notSelected dish" id="left">Japanese</label>
+				<input type="checkbox" name="cuisine[]" value="Greek" id="greek">
+				<label for="greek" class="button notSelected dish">Greek</label>
+				<input type="checkbox" name="cuisine[]" value="Moroccan" id="moroccan">
+				<label for="moroccan" class="button notSelected dish">Moroccan</label>
+				<input type="checkbox" name="cuisine[]" value="Mexican" id="mexican">
+				<label for="mexican" class="button notSelected dish" id="right">Mexican</label>
+			</div>
+			<div id="dishCuisineChoices4" class="row">
+				<input type="checkbox" name="cuisine[]" value="Spanish" id="spanish">
+				<label for="spanish" class="button notSelected dish" id="left">Spanish</label>
+				<input type="checkbox" name="cuisine[]" value="Thai" id="thai">
+				<label for="thai" class="button notSelected dish">Thai</label>
+				<input type="checkbox" name="cuisine[]" value="Turkish" id="turkish">
+				<label for="turkish" class="button notSelected dish">Turkish</label>
+				<input type="checkbox" name="cuisine[]" value="Other" id="other">
+				<label for="other" class="button notSelected dish" id="right">Other</label>
+			</div>
+		</div>
+		<br>
+		<div id="dietaryRequirements" class="sections">
+			<div class="header">
+				Dietary Requirements<br>
+			</div>
+			<div id="dietaryChoices1" class="row">
+				<input type="checkbox" name="diet[]" value="Vegetarian" id="vegetarian">
+				<label for="vegetarian" class="button notSelected dish">Vegetarian</label>
+				<input type="checkbox" name="diet[]" value="Pescatarian" id="pescatarian">
+				<label for="pescatarian" class="button notSelected dish">Pescatarian</label>
+				<input type="checkbox" name="diet[]" value="vegan" id="vegan">
+				<label for="vegan" class="button notSelected dish">Vegan</label>
+				<!-- <input type="checkbox" name="diet[]" value="none" id="none">
+				<label for="none" class="button notSelected dish" id="right">None</label> -->
+			</div>
+		</div>
+		<br>
+		<div id="otherRequirements" class="sections">
+			<div class="header">
+				Other Requirements<br>
+			</div>
+			<div id="otherReqChoices1" class="row">
+				<input type="checkbox" name="req[]" value="Low Fat" id="lowFat">
+				<label for="lowFat" class="button notSelected dish" id="left">Low Fat</label>
+				<input type="checkbox" name="req[]" value="Low Salt" id="lowSalt">
+				<label for="lowSalt" class="button notSelected dish">Low Salt</label>
+				<input type="checkbox" name="req[]" value="Low Sugar" id="lowSugar">
+				<label for="lowSugar" class="button notSelected dish">Low Sugar</label>
+				<input type="checkbox" name="req[]" value="Low Calorie" id="lowCalorie">
+				<label for="lowCalorie" class="button notSelected dish" id="right">Low Calorie&nbsp</label>
+			</div>
+			<div id="otherReqChoices1" class="row">
+				<input type="checkbox" name="req[]" value="Nut Free" id="nutFree">
+				<label for="nutFree" class="button notSelected dish" id="left">Nut Free</label>
+				<input type="checkbox" name="req[]" value="Gluten Free" id="glutenFree">
+				<label for="glutenFree" class="button notSelected dish">Gluten Free</label>
+				<input type="checkbox" name="req[]" value="Dairy Free" id="dairyFree">
+				<label for="dairyFree" class="button notSelected dish">Dairy Free</label>
+				<input type="checkbox" name="req[]" value="Wheat Free" id="wheatFree">
+				<label for="wheatFree" class="button notSelected dish" id="right">Wheat Free</label>
+			</div>
+		</div>
+		<br>
+		<div id="findADishButton">
+			<br><input value="Find A Dish!" type="submit" class="button">
+		</div>
+	</form>
+	<script>
+	$(document).ready(function() {
+        $('#findADish').submit(function(e){
+        	//Prevent submission of form
+            e.preventDefault();
+            //Submit form
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/findDish.php',
+                type:'post',
+                data:$('#findADish').serialize(),
+                //MUST HAVE VALID JSON DATA RETURNED FOR SUCCESS FUNCTION
+                dataType: "json",
+
+                success: function(data){
+                	console.log("DANNY:"+data);
+                    findDishResults = data;
+                    console.log("TOM:"+findDishResults);
+                    window.location.hash = "search";
+                    //redirect to search results 
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Check your Internet Connection");
+                }
+            });
+        });
+    });
+	</script>
+</html>

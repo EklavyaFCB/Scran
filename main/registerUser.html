@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="js/jquery-1.10.2.js"></script>
+        <title>Register User</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1,
+            user-scalable=no, width=device-width">
+        <meta name="author" content="Lucy Rogers and Tom French">
+        <meta name="copyright" content="Lucy Rogers and Tom French 2017">
+        <meta name="date" content="2017-04-03" scheme="YYYY-MM-DD">
+        <link rel="shortcut icon" href="icon.png">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/user.css" />
+    </head>
+
+    <body>
+    	<div class="mainContent">
+            <!-- Main title -->
+    		<h1>Enter your details below:</h1><br>
+            <!-- Register form -->
+            <form class="inputForm" name="registerNewUser" method="post" id="registerNewUser">
+                <div class="inputForm">
+                    <div class="row">
+                        <div class="tableCell" id="field">
+                            Username:     <!-- First field is username --> 
+                        </div>
+                        <div class="tableCell">
+                            <input type="text" name="username" maxlength="40" placeholder="Username" required="yes" id="value">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tableCell" id="field">
+                            Email:      <!-- Next field is email -->
+                        </div>
+                        <div class="tableCell">
+                            <input type="email" name="email" maxlength="40" placeholder="Email" required="yes" id="value">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="tableCell" id="field">
+                            Password:   <!-- Next field is password -->
+                        </div>
+                        <div class="tableCell">
+                            <input type="password" name="password" maxlength="40" placeholder="Password" required="yes" id="value">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tableCell" id="field">
+                            Re-enter Password:  <!-- Next field is re-enter password - use for validation -->
+                        </div>
+                        <div class="tableCell">
+                            <input type="password" name="passwordReenter" maxlength="40" placeholder="Re-enter Password" required="yes" id="value">
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <!-- These are the buttons to either register the account or cancel and return to previous screen -->
+                <div class="row">
+                    <input value="Register" type="submit" class="button">
+                </div>
+                <div class="row">
+                    <input value="Cancel" type="button" onclick="location.href='index.html'" class="button">
+                </div>
+            <!-- This section links to restaurant register page -->
+            <br><br><br>
+                <div class="row">
+                    <h3>Are you a restaurant?</h3><br>
+                </div>
+                <div class="row">
+                    <input value="Register Here" type="button" onClick="location.href='registerRestaurant.html'" class="button">
+                </div>
+            </div>
+            </form>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                $('#registerNewUser').submit(function(e){
+                    //Prevent submission of form
+                    e.preventDefault();
+                    //Submit form
+                    $.ajax({
+                        url:'http://cgi.csc.liv.ac.uk/~u5dc/register.php',
+                        type:'post',
+                        data:$('#registerNewUser').serialize(),
+                        //MUST HAVE VALID JSON DATA RETURNED FOR SUCCESS FUNCTION
+                        dataType: "json",
+
+                        success: function(data){
+                            //Feeback for registration 
+                            alert(data.message);
+                            //Checks if account successfully registered
+                            if (data.success) {
+                            	//Redirect to home
+                            	window.location.replace("loginUser.html");
+                            }
+                        },
+                        error: function(xhr, ajaxOptions, thrownError){
+                            alert("ERROR: Check your Internet Connection");
+                        }
+                    });
+                });
+            });
+            function writeUserData(data) {
+                localStorage.username = data.username;
+                localStorage.userID = data.userID;
+                localStorage.userType = data.userType;
+            }
+        </script>
+    </body>
+</html>

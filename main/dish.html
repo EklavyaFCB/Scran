@@ -1,0 +1,227 @@
+<link rel="stylesheet" type="text/css" href="css/dish.css" />
+    <h1 id="dishName"></h1>		<!-- Name of dish -->
+        <div class="table">
+            <div class="dishInfo">		<!-- Dish description -->
+				<p id="cuisine"></p>
+				<p id="course"></p>
+                <div id="goToRest" class="button"></div>
+				<p id="description"></p>
+            </div>
+            <form class="trafficLightForm" name="addNewDishRating" action="#" method="post">
+                <div class="table rating">
+                    <div class="row">
+                        <div class="tableCell" id="dislikes">
+                        </div>
+                        <div class="tableCell" id="likes">
+                        </div>
+                        <div class="tableCell" id="loves">
+                        </div>
+                    </div>
+                	<div class="row">
+                    	<div class="tableCell"> 
+                            <input type="radio" class="trafficLight" name="trafficLight" value="red" id="red">
+                            <label for="red" class="trafficLight"><img src="resources/ThumbsDown.png" alt="Dislike it" width="50px" height="50px"></label>
+                        </div>
+                        <div class="tableCell">
+                            <input type="radio" class="trafficLight" name="trafficLight" value="amber" id="amber">
+                            <label for="amber" class="trafficLight"><img src="resources/ThumbsUp.png" alt="Like it" width="50px" height="50px"></label>
+                        </div>
+                        <div class="tableCell">
+                            <input type="radio" class="trafficLight" name="trafficLight" value="green" id="green">
+                            <label for="green" class="trafficLight"><img src="resources/heartIcon.png" alt="Love it" width="50px" height=50px></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="table">
+    				<div class="row" id="oldComment">
+    					
+    				</div>
+    				<div class="row">
+    					<div class="item">
+    						<textarea name="comment" placeholder="comment" id="comment"></textarea>
+    					</div>
+    				</div>
+    				<br>
+    				<div class="row">
+    					<input id="submitReview" name="submitReview" value="Save" type="button" class="button">
+    				</div>
+                </div>
+			</form>
+			<br>
+            <div class="row">
+                <div class="header">		<!-- Main ingredients section -->
+                    Main Ingredients
+                </div>
+            </div>
+            <div class="row">
+                <div class="item" id="ingredient">
+                    <p id="mainIngredient1"></p>
+                </div>
+                <div class="item" id="ingredient">
+                    <p id="mainIngredient2"></p>
+                </div>
+                <div class="item" id="ingredient">
+                    <p id="mainIngredient3"></p>
+                </div>
+                <div class="item" id="ingredient">
+                    <p id="mainIngredient4"></p>
+                </div>
+                <div class="item" id="ingredient">
+                    <p id="mainIngredient5"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="header">	<!-- Other info section -->
+                    Other Info
+                </div>
+            </div>
+            <div class="row">
+                <div class="item" id="ingredient">
+                    <p id="diet"></p>
+					<p id="specialReq"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="header">	<!-- Other comments/reviews section -->
+                    Other Comments
+                </div>
+            </div> 
+            <div id="otherCommentsList"></div>
+        </div>
+	<script>
+        var userID = localStorage.userID;
+        $(document).ready(function() {
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/viewDishRating.php',
+                    type:'post',
+                    dataType: "json",
+                    data: {dishIDToLoad : dishIDToLoad, userID : userID},
+
+                success: function(data){
+                    if(data.rating=="green"){
+                        $('#green').prop('checked', true);
+                    } else if(data.rating=="amber"){
+                        $('#amber').prop('checked', true);
+                    } else if(data.rating=="red"){
+                        $('#red').prop('checked', true);
+                    }
+                    if(data.comment!=null){
+                        $("#oldComment").append("<p><b>Your review:</b><br> " + data.comment + "</p>");
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Loading rating");
+                }
+            });
+        });
+        // AJAX
+		$(document).ready(function() {
+        $(document).off('click','#submitReview');
+        $('#submitReview').on('click',function(e){
+			var rating = $(".trafficLight:checked").val();
+			var params = {userID:userID, dishIDToLoad:dishIDToLoad, rating:rating, comment: $('#comment').val(),};
+			var dataToSend = $('#addNewDishRating').serialize()+'&'+$.param(params);
+        	//Prevent submission of form
+            e.preventDefault();
+            //Submit form
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/addDishRating.php',
+                type:'post',
+                data:dataToSend,
+                //MUST HAVE VALID JSON DATA RETURNED FOR SUCCESS FUNCTION
+                dataType: "json",
+
+                success: function(data){
+    				//Feeback for registration 
+                    alert(data.message);
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Check your Internet Connection");
+                }
+            });
+        });
+    });
+        $(document).ready(function() {
+            $.ajax({
+                url:'http://cgi.csc.liv.ac.uk/~u5dc/dish.php',
+                    type:'post',
+                    dataType: "json",
+                    data: {dishIDToLoad : dishIDToLoad},
+
+                success: function(data){
+                    //Checks if account successfully registered
+                    if (data.success) { 
+                        //Put retrieved elements from DB in place
+                        $("#loves").append(data.greenPoints);
+                        $("#likes").append(data.amberPoints);
+                        $("#dislikes").append(data.redPoints);
+						$("#dishName").append(data.dishName);
+						$("#cuisine").append(data.cuisine);
+						$("#course").append(data.course);
+						$("#description").append(data.description);
+						$("#diet").append(data.diet);
+						$("#specialReq").append(data.specialReq);
+						$("#mainIngredient1").append(data.mainIngredient1);
+						$("#mainIngredient2").append(data.mainIngredient2);
+						$("#mainIngredient3").append(data.mainIngredient3);
+						$("#mainIngredient4").append(data.mainIngredient4);
+						$("#mainIngredient5").append(data.mainIngredient5);
+                        $("#goToRest").append(data.restName);
+                        $("#goToRest").attr("data-value",data.restID);
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert("ERROR: Check your Internet Connection");
+                }
+            });
+        });
+$(document).ready(function() {
+    $.ajax({
+        url:'http://cgi.csc.liv.ac.uk/~u5dc/viewOtherDishComments.php',
+        type:'post',
+        data:{ dishIDToLoad : dishIDToLoad, userID:userID},
+        dataType: "json",
+        success: function(response){
+            var commentCounter;
+            for(commentCounter=0;commentCounter<response.length;commentCounter++)
+            {
+                $("#otherCommentsList").append(""+
+                "<div id=\"dishResult\" class=\"dishResult\" data-value=\""+response[commentCounter].reviewID + "\">" +
+                    "<div class=\"row\">" +
+                        "<div id=\"flagMe\"><img style=\"float:right;\" src=\"resources/flag.png\" alt=\"Help\" height=\"20px\" width=\"20px\"></div>" +
+                        "<h3>" + response[commentCounter].username + "</h3>" +
+                        "<h3>" + response[commentCounter].reviewDate + "</h3>" +
+                        "<h3>" + response[commentCounter].comment + "</h3>" +
+                    "</div>" +
+                "</div>");
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+            alert("ERROR: Check your Internet Connection");
+        }
+    });
+});
+	$(document).off('click','#flagMe');
+    $(document).on('click','#flagMe',function(e){
+        var reviewID = $(this).parent().parent().attr("data-value");
+		e.preventDefault();
+        $.ajax({
+            url:'http://cgi.csc.liv.ac.uk/~u5dc/addFlag.php',
+            type:'post',
+            data:{ reviewID: reviewID},
+            dataType: "json",
+            success: function(response){
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert("ERROR: Check your Internet Connection");
+            }
+        });
+    });
+    $(document).off('click','#goToRest');
+    $(document).on('click','#goToRest',function(e){
+        restaurantIDToLoad = $(this).attr('data-value');
+        if(restaurantIDToLoad!=null){
+            window.location.hash = "restaurant";
+        }
+    });
+	</script>

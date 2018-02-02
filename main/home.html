@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<title>Welcome</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1,
+        	user-scalable=no, width=device-width">
+        <meta name="author" content="Lucy Rogers and Tom French">
+        <meta name="copyright" content="Lucy Rogers and Tom French 2017">
+        <meta name="date" content="2017-04-03" scheme="YYYY-MM-DD">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="shortcut icon" href="icon.png">
+        <!-- Navbar js -->
+        <script src="js/jquery-1.10.2.js"></script>
+    </head>
+    <body>
+        <!--Navigation drawer-->
+        <div id="nav-drawer-placeholder">
+        <script>
+            $(function(){
+                $("#nav-drawer-placeholder").load("navigationDrawer.html");
+            });
+        </script>
+        </div>
+        <!--end of Navigation bar-->
+
+    	<div id="mainContent" class="mainContent"></div>
+        
+        <!--Navigation bar-->
+        <div id="nav-placeholder">
+            <script>
+                $(function(){
+                    $("#nav-placeholder").load("nav.html");
+                });
+            </script>
+        </div>
+        <!--end of Navigation bar-->
+    </body>
+</html>

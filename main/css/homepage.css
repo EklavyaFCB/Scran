@@ -1,0 +1,25 @@
+.sectionTable {
+	display: table;
+	margin: auto;
+	text-align: center;
+	width:100%;
+}
+
+.tableCell.home {
+	background-color: #FFE3B3;
+	color: black;
+	padding: 5%;
+	border: 1.5vw solid white;
+	font-size: 4vw;
+}
+
+.searchResult {
+	background-color: #FFE3B3;
+	margin: auto;
+	display:table;
+	border-style: solid;
+	border-color: white;
+	border-width: 1.5vw;
+	padding: 2%;
+	width:90%;
+}
